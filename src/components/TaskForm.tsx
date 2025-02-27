@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Task } from '../types';
+import { v4 as uuidv4 } from 'uuid';
 
 interface TaskFormProps {
   addTask: (task: Task) => void;
@@ -12,7 +13,13 @@ const TaskForm: React.FC<TaskFormProps> = ({ addTask }) => {
     e.preventDefault();
     if (!title.trim()) return;
 
-    addTask({ id: Date.now(), title, status: 'Active', createdAt: new Date() });
+    addTask({
+      id: uuidv4(),
+      title,
+      status: 'Active',
+      createdAt: new Date(),
+    });
+
     setTitle('');
   };
 
