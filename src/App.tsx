@@ -14,13 +14,10 @@ const initialTasks: Task[] = [
 
 const loadTasksFromLocalStorage = (): Task[] => {
   const savedTasks = localStorage.getItem('tasks');
-  if (savedTasks) {
-    return JSON.parse(savedTasks).map((task: Task) => ({
-      ...task,
-      createdAt: new Date(task.createdAt),
-    }));
-  }
-  return initialTasks;
+  return savedTasks ? JSON.parse(savedTasks).map((task: Task) => ({
+    ...task,
+    createdAt: new Date(task.createdAt),
+  })) : initialTasks;
 };
 
 const saveTasksToLocalStorage = (tasks: Task[]) => {
@@ -76,12 +73,8 @@ const App: React.FC = () => {
     .filter((task) => task.title.toLowerCase().includes(query.toLowerCase()));
 
   return (
-    <div
-      className={`min-h-screen flex items-center justify-center p-4 transition-colors duration-300 ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'}`}
-    >
-      <div
-        className={`shadow-lg rounded-lg p-6 w-full max-w-lg transition-colors duration-300 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}
-      >
+    <div className="min-h-screen flex items-center justify-center p-4 transition-colors duration-300">
+      <div className={`shadow-lg rounded-lg p-6 w-full max-w-lg transition-colors duration-300 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'}`}>
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold">To-Do List</h1>
           <button
