@@ -7,9 +7,10 @@ interface TaskListProps {
   deleteTask: (id: string) => void;
   editTask: (id: string, newTitle: string) => void;
   toggleStatus: (id: string) => void;
+  darkMode: boolean;
 }
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, deleteTask, editTask, toggleStatus }) => {
+const TaskList: React.FC<TaskListProps> = ({ tasks, deleteTask, editTask, toggleStatus, darkMode }) => {
   return (
     <div className="mt-4 space-y-2">
       {tasks.map(task => (
@@ -19,6 +20,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, deleteTask, editTask, toggle
           deleteTask={deleteTask}
           editTask={editTask}
           toggleStatus={toggleStatus}
+          darkMode={darkMode}
         />
       ))}
     </div>

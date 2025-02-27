@@ -4,9 +4,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 interface TaskFormProps {
   addTask: (task: Task) => void;
+  darkMode: boolean;
 }
 
-const TaskForm: React.FC<TaskFormProps> = ({ addTask }) => {
+const TaskForm: React.FC<TaskFormProps> = ({ addTask, darkMode }) => {
   const [title, setTitle] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -30,7 +31,9 @@ const TaskForm: React.FC<TaskFormProps> = ({ addTask }) => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="What needs to be done?"
-        className="flex-grow p-2 border rounded-lg focus:outline-none"
+        className={`flex-grow p-2 border rounded-lg focus:outline-none transition-colors duration-300 ${
+          darkMode ? 'bg-gray-700 text-white border-gray-500' : 'bg-white text-black border-gray-300'
+        }`}
       />
       <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-lg">
         Dodaj zadanie

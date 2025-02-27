@@ -6,9 +6,10 @@ interface TaskItemProps {
   deleteTask: (id: string) => void;
   editTask: (id: string, newTitle: string) => void;
   toggleStatus: (id: string) => void;
+  darkMode: boolean;
 }
 
-const TaskItem: React.FC<TaskItemProps> = ({ task, deleteTask, editTask, toggleStatus }) => {
+const TaskItem: React.FC<TaskItemProps> = ({ task, deleteTask, editTask, toggleStatus, darkMode }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(task.title);
 
@@ -20,7 +21,9 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, deleteTask, editTask, toggleS
   };
 
   return (
-    <div className="flex justify-between items-center p-3 bg-white shadow-md rounded-lg border">
+    <div className={`flex justify-between items-center p-3 shadow-md rounded-lg border transition-colors duration-300 ${
+      darkMode ? 'bg-gray-700 text-white border-gray-500' : 'bg-white text-black border-gray-300'
+    }`}>
       <div className="flex items-center space-x-2">
         <input
           type="checkbox"
@@ -33,10 +36,14 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, deleteTask, editTask, toggleS
             type="text"
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
-            className="flex-grow p-1 border rounded-lg focus:outline-none"
+            className={`flex-grow p-1 border rounded-lg focus:outline-none transition-colors duration-300 ${
+              darkMode ? 'bg-gray-600 text-white border-gray-400' : 'bg-white text-black border-gray-300'
+            }`}
           />
         ) : (
-          <span className={`text-gray-800 ${task.status === 'Completed' ? 'line-through' : ''}`}>
+          <span className={`transition-colors duration-300 ${
+            darkMode ? 'text-gray-300' : 'text-gray-800'
+          } ${task.status === 'Completed' ? 'line-through' : ''}`}>
             {task.title}
           </span>
         )}

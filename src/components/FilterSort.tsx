@@ -5,9 +5,10 @@ interface FilterSortProps {
   setFilterStatus: (status: string) => void;
   query: string;
   setQuery: (query: string) => void;
+  darkMode: boolean;
 }
 
-const FilterSort: React.FC<FilterSortProps> = ({ filterStatus, setFilterStatus, query, setQuery }) => {
+const FilterSort: React.FC<FilterSortProps> = ({ filterStatus, setFilterStatus, query, setQuery, darkMode }) => {
   return (
     <div className="flex flex-col space-y-3 border-t pt-3 mt-3 text-gray-600 text-sm">
       {/* Pole wyszukiwania */}
@@ -16,7 +17,9 @@ const FilterSort: React.FC<FilterSortProps> = ({ filterStatus, setFilterStatus, 
         placeholder="Search tasks..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className="w-full px-3 py-2 border rounded"
+        className={`flex-grow p-2 border rounded-lg focus:outline-none transition-colors duration-300 ${
+          darkMode ? 'bg-gray-700 text-white border-gray-500' : 'bg-white text-black border-gray-300'
+        }`}
       />
 
       {/* Filtry statusu */}
