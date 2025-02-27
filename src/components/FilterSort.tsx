@@ -9,21 +9,21 @@ interface FilterSortProps {
 
 const FilterSort: React.FC<FilterSortProps> = ({ filter, setFilter, sort, setSort }) => {
   return (
-    <div className="mb-4">
+    <div className="flex space-x-2 mb-4">
       <input
         type="text"
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
         placeholder="Filtruj zadania"
-        className="p-2 border rounded mr-2"
+        className="flex-grow p-2 border rounded-lg focus:outline-none"
       />
       <select
         value={sort}
         onChange={(e) => setSort(e.target.value as 'asc' | 'desc')}
-        className="p-2 border rounded"
+        className="p-2 border rounded-lg focus:outline-none"
       >
-        <option value="asc">Sortuj rosnąco</option>
-        <option value="desc">Sortuj malejąco</option>
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
       </select>
     </div>
   );

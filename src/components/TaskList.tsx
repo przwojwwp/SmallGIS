@@ -4,20 +4,20 @@ import { Task } from '../types';
 
 interface TaskListProps {
   tasks: Task[];
-  editTask: (id: number, updatedTask: Task) => void;
   deleteTask: (id: number) => void;
+  editTask: (id: number, newTitle: string) => void;
   toggleStatus: (id: number) => void;
 }
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, editTask, deleteTask, toggleStatus }) => {
+const TaskList: React.FC<TaskListProps> = ({ tasks, deleteTask, editTask, toggleStatus }) => {
   return (
-    <div className="space-y-4">
+    <div className="mt-4 space-y-2">
       {tasks.map(task => (
         <TaskItem
           key={task.id}
           task={task}
-          editTask={editTask}
           deleteTask={deleteTask}
+          editTask={editTask}
           toggleStatus={toggleStatus}
         />
       ))}

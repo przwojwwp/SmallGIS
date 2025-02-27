@@ -3,56 +3,58 @@ import { Task } from '../types';
 
 interface TaskItemProps {
   task: Task;
-  editTask: (id: number, updatedTask: Task) => void;
   deleteTask: (id: number) => void;
+  editTask: (id: number, newTitle: string) => void;
   toggleStatus: (id: number) => void;
 }
 
-const TaskItem: React.FC<TaskItemProps> = ({ task, editTask, deleteTask, toggleStatus }) => {
+const TaskItem: React.FC<TaskItemProps> = ({ task, deleteTask, editTask, toggleStatus }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [title, setTitle] = useState(task.title);
-  const [description, setDescription] = useState(task.description);
+  const [newTitle, setNewTitle] = useState(task.title);
 
-  const handleSave = () => {
-    editTask(task.id, { ...task, title, description });
-    setIsEditing(false);
+  const handleEdit = () => {
+    if (isEditing) {
+      editTask(task.id, newTitle);
+    }
+    setIsEditing(!isEditing);
   };
 
   return (
-    <div className="p-4 border rounded shadow-sm">
-      {isEditing ? (
-        <div>
+    <div className="flex justify-between items-center p-3 bg-white shadow-md rounded-lg border">
+      <div className="flex items-center space-x-2">
+        <input
+          type="checkbox"
+          checked={task.status === 'Completed'}
+          onChange={() => toggleStatus(task.id)}
+          className="form-checkbox h-5 w-5 text-blue-600"
+        />
+        {isEditing ? (
           <input
             type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="mb-2 p-2 border rounded"
+            value={newTitle}
+            onChange={(e) => setNewTitle(e.target.value)}
+            className="flex-grow p-1 border rounded-lg focus:outline-none"
           />
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="mb-2 p-2 border rounded"
-          />
-          <button onClick={handleSave} className="bg-blue-500 text-white p-2 rounded">
-            Zapisz
-          </button>
-        </div>
-      ) : (
-        <div>
-          <h2 className="text-xl font-bold">{task.title}</h2>
-          <p>{task.description}</p>
-          <p>Status: {task.status}</p>
-          <button onClick={() => toggleStatus(task.id)} className="bg-green-500 text-white p-2 rounded mr-2">
-            Zmień status
-          </button>
-          <button onClick={() => setIsEditing(true)} className="bg-yellow-500 text-white p-2 rounded mr-2">
-            Edytuj
-          </button>
-          <button onClick={() => deleteTask(task.id)} className="bg-red-500 text-white p-2 rounded">
-            Usuń
-          </button>
-        </div>
-      )}
+        ) : (
+          <span className={`text-gray-800 ${task.status === 'Completed' ? 'line-through' : ''}`}>
+            {task.title}
+          </span>
+        )}
+      </div>
+      <div className="flex space-x-2">
+        <button
+          onClick={handleEdit}
+          className="bg-yellow-500 text-white px-3 py-1 rounded-lg text-sm"
+        >
+          {isEditing ? 'Save' : 'Edit'}
+        </button>
+        <button
+          onClick={() => deleteTask(task.id)}
+          className="bg-red-500 text-white px-3 py-1 rounded-lg text-sm"
+        >
+          Delete
+        </button>
+      </div>
     </div>
   );
 };

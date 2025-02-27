@@ -7,38 +7,25 @@ interface TaskFormProps {
 
 const TaskForm: React.FC<TaskFormProps> = ({ addTask }) => {
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newTask: Task = {
-      id: Date.now(),
-      title,
-      description,
-      status: 'To Do',
-      createdAt: new Date(),
-    };
-    addTask(newTask);
+    if (!title.trim()) return;
+
+    addTask({ id: Date.now(), title, status: 'Active', createdAt: new Date() });
     setTitle('');
-    setDescription('');
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-4">
+    <form onSubmit={handleSubmit} className="flex space-x-2 mb-4">
       <input
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="Tytuł zadania"
-        className="p-2 border rounded mr-2"
+        placeholder="What needs to be done?"
+        className="flex-grow p-2 border rounded-lg focus:outline-none"
       />
-      <textarea
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        placeholder="Opis zadania"
-        className="p-2 border rounded mr-2"
-      />
-      <button type="submit" className="bg-blue-500 text-white p-2 rounded">
+      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-lg">
         Dodaj zadanie
       </button>
     </form>
