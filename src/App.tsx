@@ -7,9 +7,9 @@ import { Task } from './types';
 
 const initialTasks: Task[] = [
   { id: uuidv4(), title: 'Zadanie 1', status: 'Active', createdAt: new Date() },
-  { id: uuidv4(), title: 'Zadanie 2', status: 'Active', createdAt: new Date() },
+  { id: uuidv4(), title: 'Zadanie 2', status: 'Completed', createdAt: new Date() },
   { id: uuidv4(), title: 'Zadanie 3', status: 'Active', createdAt: new Date() },
-  { id: uuidv4(), title: 'Zadanie 4', status: 'Active', createdAt: new Date() },
+  { id: uuidv4(), title: 'Zadanie 4', status: 'Completed', createdAt: new Date() },
 ];
 
 const loadTasksFromLocalStorage = (): Task[] => {
