@@ -11,7 +11,6 @@ interface FilterSortProps {
 const FilterSort: React.FC<FilterSortProps> = ({ filterStatus, setFilterStatus, query, setQuery, darkMode }) => {
   return (
     <div className="flex flex-col space-y-3 border-t pt-3 mt-3 text-gray-600 text-sm">
-      {/* Pole wyszukiwania */}
       <input
         type="text"
         placeholder="Search tasks..."
@@ -21,8 +20,6 @@ const FilterSort: React.FC<FilterSortProps> = ({ filterStatus, setFilterStatus, 
           darkMode ? 'bg-gray-700 text-white border-gray-500' : 'bg-white text-black border-gray-300'
         }`}
       />
-
-      {/* Filtry statusu */}
       <div className="flex space-x-2">
         <button
           onClick={() => setFilterStatus('All')}

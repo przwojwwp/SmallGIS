@@ -1,21 +1,43 @@
-import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import TaskItem from './TaskItem';
-import { Task } from '../types';
+import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import TaskItem from "./TaskItem";
+import { Task } from "../types";
 
 interface TaskListProps {
   tasks: Task[];
   deleteTask: (id: string) => void;
   editTask: (id: string, newTitle: string) => void;
   toggleStatus: (id: string) => void;
+  clearCompletedTasks: () => void;
+  hasCompletedTasks: boolean;
   darkMode: boolean;
 }
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, deleteTask, editTask, toggleStatus, darkMode }) => {
+const TaskList: React.FC<TaskListProps> = ({
+  tasks,
+  deleteTask,
+  editTask,
+  toggleStatus,
+  clearCompletedTasks,
+  hasCompletedTasks,
+  darkMode,
+}) => {
   return (
-    <div className="mt-4 space-y-2">
+    <div className="space-y-2">
+            {hasCompletedTasks && (
+        <button
+          onClick={clearCompletedTasks}
+          className={`mt-4 w-full px-4 py-2 rounded transition-colors duration-300 ${
+            darkMode
+              ? "bg-red-700 hover:bg-red-800 text-white"
+              : "bg-red-500 hover:bg-red-600 text-white"
+          }`}
+        >
+          Clear Completed
+        </button>
+      )}
       <AnimatePresence>
-        {tasks.map(task => (
+        {tasks.map((task) => (
           <motion.div
             key={task.id}
             initial={{ opacity: 0, y: -10 }}

@@ -14,10 +14,12 @@ const initialTasks: Task[] = [
 
 const loadTasksFromLocalStorage = (): Task[] => {
   const savedTasks = localStorage.getItem('tasks');
-  return savedTasks ? JSON.parse(savedTasks).map((task: Task) => ({
-    ...task,
-    createdAt: new Date(task.createdAt),
-  })) : initialTasks;
+  return savedTasks
+    ? JSON.parse(savedTasks).map((task: Task) => ({
+        ...task,
+        createdAt: new Date(task.createdAt),
+      }))
+    : initialTasks;
 };
 
 const saveTasksToLocalStorage = (tasks: Task[]) => {
@@ -50,6 +52,12 @@ const App: React.FC = () => {
     saveTasksToLocalStorage(newTasks);
   };
 
+  const clearCompletedTasks = () => {
+    const newTasks = tasks.filter((task) => task.status !== 'Completed');
+    setTasks(newTasks);
+    saveTasksToLocalStorage(newTasks);
+  };
+
   const editTask = (id: string, newTitle: string) => {
     const newTasks = tasks.map((task) =>
       task.id === id ? { ...task, title: newTitle } : task
@@ -61,7 +69,10 @@ const App: React.FC = () => {
   const toggleStatus = (id: string) => {
     const newTasks = tasks.map((task) =>
       task.id === id
-        ? { ...task, status: (task.status === 'Active' ? 'Completed' : 'Active') as 'Active' | 'Completed' }
+        ? {
+            ...task,
+            status: task.status === 'Active' ? ('Completed' as 'Completed') : ('Active' as 'Active'),
+          }
         : task
     );
     setTasks(newTasks);
@@ -74,12 +85,18 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 transition-colors duration-300">
-      <div className={`shadow-lg rounded-lg p-6 w-full max-w-lg transition-colors duration-300 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'}`}>
+      <div
+        className={`shadow-lg rounded-lg p-6 w-full max-w-lg transition-colors duration-300 ${
+          darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'
+        }`}
+      >
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-2xl font-bold">To-Do List</h1>
           <button
             onClick={toggleDarkMode}
-            className={`px-3 py-1 border rounded transition-colors duration-300 ${darkMode ? 'border-gray-500' : 'border-gray-300'}`}
+            className={`px-3 py-1 border rounded transition-colors duration-300 ${
+              darkMode ? 'border-gray-500' : 'border-gray-300'
+            }`}
           >
             {darkMode ? '☀️' : '🌙'}
           </button>
@@ -98,6 +115,8 @@ const App: React.FC = () => {
           deleteTask={deleteTask}
           toggleStatus={toggleStatus}
           darkMode={darkMode}
+          hasCompletedTasks={tasks.some((task) => task.status === 'Completed')}
+          clearCompletedTasks={clearCompletedTasks}
         />
       </div>
     </div>
