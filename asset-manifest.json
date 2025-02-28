@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/SmallGIS/static/css/main.3a41da54.css",
-    "main.js": "/SmallGIS/static/js/main.03a005d8.js",
+    "main.css": "/SmallGIS/static/css/main.f8c8b794.css",
+    "main.js": "/SmallGIS/static/js/main.39035ba3.js",
     "index.html": "/SmallGIS/index.html",
-    "main.3a41da54.css.map": "/SmallGIS/static/css/main.3a41da54.css.map",
-    "main.03a005d8.js.map": "/SmallGIS/static/js/main.03a005d8.js.map"
+    "main.f8c8b794.css.map": "/SmallGIS/static/css/main.f8c8b794.css.map",
+    "main.39035ba3.js.map": "/SmallGIS/static/js/main.39035ba3.js.map"
   },
   "entrypoints": [
-    "static/css/main.3a41da54.css",
-    "static/js/main.03a005d8.js"
+    "static/css/main.f8c8b794.css",
+    "static/js/main.39035ba3.js"
   ]
 }
